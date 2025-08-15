@@ -1,11 +1,22 @@
 {
   "extends": "@repo/typescript-config/base.json",
   "compilerOptions": {
-    "outDir": "dist",
+    "outDir": "dist", // Optional: for build output if needed
     "rootDir": "src",
     "declaration": true,
     "declarationMap": true,
-    "emitDeclarationOnly": false
+    "emitDeclarationOnly": false, // Emits JS as well
+    "module": "ESNext", // ES modules
+    "moduleResolution": "node", // Node-style resolution
+    "target": "ES2020",
+    "strict": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@repo/react-hooks": ["src/index.ts"]
+    },
+    "sourceMap": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

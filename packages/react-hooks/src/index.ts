@@ -1,1 +1,1 @@
-export { useCounter } from "./useCounter.js";
+export { useCounter } from "./useCounter";

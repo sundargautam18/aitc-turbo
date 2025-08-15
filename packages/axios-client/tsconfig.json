@@ -1,11 +1,19 @@
 {
   "extends": "@repo/typescript-config/base.json",
   "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "src",
-    "declaration": true,
-    "declarationMap": true,
-    "emitDeclarationOnly": false
+    "outDir": "dist", // Compiled output folder
+    "rootDir": "src", // Source folder
+    "declaration": true, // Generate .d.ts files
+    "declarationMap": true, // Map .d.ts to TS source
+    "emitDeclarationOnly": false, // Emit JS + declarations
+    "sourceMap": true, // Generate source maps
+    "esModuleInterop": true, // For import compatibility
+    "resolveJsonModule": true, // Import JSON files
+    "strict": true, // Enable strict mode
+    "baseUrl": ".", // Base for path aliases
+    "paths": {
+      "@repo/axios-client": ["src/index.ts"] // Direct import alias
+    }
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
