@@ -1,44 +1,58 @@
-# Base image with system dependencies
+# ---------- BASE IMAGE ----------
+# Use Node Alpine for smaller image size
 FROM node:20-alpine AS base
 
-# Install system dependencies for canvas and other native modules
-RUN apk add --no-cache libc6-compat python3 make g++ pkgconfig cairo-dev pango-dev libpng-dev libjpeg-turbo-dev giflib-dev pixman-dev
+# Install system dependencies for native modules in one layer
+RUN apk add --no-cache \
+    libc6-compat \
+    python3 \
+    make \
+    g++ \
+    pkgconfig \
+    cairo-dev \
+    pango-dev \
+    libpng-dev \
+    libjpeg-turbo-dev \
+    giflib-dev \
+    pixman-dev \
+    bash \
+    curl
 
 WORKDIR /app
 
-# Build stage
+# ---------- BUILD STAGE ----------
 FROM base AS build
 
-WORKDIR /app
-
-# Copy package files first to leverage Docker cache
+# Copy only package files first to leverage Docker caching
 COPY package.json package-lock.json ./
 COPY apps/web/package.json apps/web/package.json
+COPY turbo.json ./
 
-# Install dependencies
-RUN npm ci
+# Install dependencies in the root node_modules
+RUN npm ci --legacy-peer-deps
 
 # Copy the rest of the code
 COPY apps apps
 COPY packages packages
-COPY turbo.json ./
 
-# Build only the web app
+# Build the web app
 WORKDIR /app/apps/web
 RUN npm run build
 
-# Production image
+# ---------- PRODUCTION IMAGE ----------
 FROM node:20-alpine AS runner
 
 WORKDIR /app
 
 ENV NODE_ENV=production
 
-# Copy built web app and production dependencies
+# Copy only production dependencies to reduce image size
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev --legacy-peer-deps
+
+# Copy built files from build stage
 COPY --from=build /app/apps/web/.next .next
-COPY --from=build /app/apps/web/package.json ./package.json
-COPY --from=build /app/node_modules ./node_modules
-# COPY --from=build /app/apps/web/public ./public  # uncomment if you have static public files
+COPY --from=build /app/apps/web/public ./public
 
 EXPOSE 3000
 
