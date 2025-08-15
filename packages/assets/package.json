@@ -1,0 +1,27 @@
+{
+  "name": "@repo/assets",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc && cpx \"src/**/*.{png,jpg,jpeg,svg,woff2}\" dist/"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "axios": "^1.7.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "*",
+    "cpx": "^1.5.0",
+    "typescript": "latest"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  }
+}

@@ -11,13 +11,18 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@repo/ui": "*",
-    "@repo/math": "*",
     "@repo/axios-client": "*",
+    "@repo/math": "*",
     "@repo/react-hooks": "*",
+    "@repo/ui": "*",
+    "@repo/assets": "*",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.539.0",
     "next": "^15.4.2",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^15.4.2",
@@ -32,6 +37,7 @@
     "eslint": "^9.33.0",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.1.5",
+    "tw-animate-css": "^1.3.6",
     "typescript": "5.9.2"
   }
 }

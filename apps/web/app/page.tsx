@@ -1,4 +1,5 @@
 "use client"
+import { sample2Jpg, samplePng } from "@repo/assets";
 import { axiosClient } from "@repo/axios-client";
 import { add } from "@repo/math/add";
 import { useCounter } from "@repo/react-hooks";
@@ -19,6 +20,7 @@ export default function Page() {
           console.log(response.data);
         });
       }}>Fetch</button>
+      <img src={sample2Jpg.src} alt="" className="border size-5" />
     </>
   );
 }
